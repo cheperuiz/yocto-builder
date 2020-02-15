@@ -1,0 +1,19 @@
+version: "3.7"
+
+services: 
+  yocto:
+    build:
+      context: ./docker
+      args:
+        - TZ=America/Los_Angeles
+        - USER=yocto
+    user: 1000:1000
+    working_dir: /home/yocto/workspace
+    environment:
+      - GIT_USER_NAME=${GIT_USER_NAME}
+      - GIT_USER_EMAIL=${GIT_USER_EMAIL}
+      - BB_NUMBER_THREADS=32
+      - PARALLEL_MAKE="-j16"
+    volumes:
+      - ./workspace:/home/yocto/workspace
+      - ./scripts:/home/yocto/scripts
